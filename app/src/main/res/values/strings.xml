@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">DAAR.TECH</string>
+    <string name="triptime">Trip Time</string>
+    <string name="trip_summary">Trip Summary</string>
+    <string name="number">Number</string>
+    <string name="rp">RP</string>
+    <string name="rp_img">RP img</string>
+
+</resources>
