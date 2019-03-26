@@ -63,19 +63,13 @@ public class ScanQRcode extends AppCompatActivity implements LocationListener {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         setContentView(R.layout.activity_qrcode);
-        dBhelper = new DBhelper(this);
-        databaseModels = new ArrayList<>();
 
-
-        databaseModels = dBhelper.getDataFromDb();
         hideStatusBar();
         getSupportActionBar().hide();
 
-        qrcode_in_et = findViewById(R.id.qr_codeget);
-        buttonScan = findViewById(R.id.scan_code);
-
-//      Checking that run is first time of the app or not
+        //      Checking that run is first time of the app or not
         Boolean isFirstRun = getSharedPreferences("PREFERENCE", MODE_PRIVATE)
                 .getBoolean("isFirstRun", true);
 
@@ -86,6 +80,12 @@ public class ScanQRcode extends AppCompatActivity implements LocationListener {
         getSharedPreferences("PREFERENCE", MODE_PRIVATE).edit()
                 .putBoolean("isFirstRun", false).apply();
 
+        qrcode_in_et = findViewById(R.id.qr_codeget);
+        buttonScan = findViewById(R.id.scan_code);
+        dBhelper = new DBhelper(this);
+        databaseModels = new ArrayList<>();
+
+        databaseModels = dBhelper.getDataFromDb();
 
 
         /* This code together with the one in onDestroy()
@@ -95,32 +95,37 @@ public class ScanQRcode extends AppCompatActivity implements LocationListener {
 //        Always Awake screen
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
 
-        qrcode_in_et.setVisibility(View.GONE);
+
         qrcode_in_et.setFocusable(true);
+
+//         Whenever the edittext change it's value this methods will run
         qrcode_in_et.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+                @Override
+                public void beforeTextChanged(CharSequence s, int start, int count, int after) {
 
-            }
-
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-                Toast.makeText(ScanQRcode.this, qrcode_in_et.getText(), Toast.LENGTH_SHORT).show();
-                QrCode = qrcode_in_et.getText().toString();
-                if(QrCode != null){
-                    getLocation();
                 }
 
-            }
+                @Override
+                public void onTextChanged(CharSequence s, int start, int before, int count) {
 
-            @Override
-            public void afterTextChanged(Editable s) {
+//              send data to database whenever edittext get the value of Qrcode
+                        QrCode = qrcode_in_et.getText().toString();
 
-            }
-        });
+                        if (QrCode != null && !QrCode.equals("")) {
 
-    }
+                            Toast.makeText(ScanQRcode.this, qrcode_in_et.getText(), Toast.LENGTH_SHORT).show();
+                            getLocation();
+                        }
+                }
 
+                @Override
+                public void afterTextChanged(Editable s) {
+
+                }
+            });
+        }
+
+//          hide Status bar and give full screen view
     void hideStatusBar() {
         View decorView = getWindow().getDecorView();
 
@@ -134,6 +139,7 @@ public class ScanQRcode extends AppCompatActivity implements LocationListener {
         );
     }
 
+
     @Override
     protected void onResume() {
         hideStatusBar();
@@ -142,7 +148,7 @@ public class ScanQRcode extends AppCompatActivity implements LocationListener {
 
 
 
-
+//      @getLocation method get the location and send it to database
 
     @TargetApi(Build.VERSION_CODES.O)
     private void getLocation() {
@@ -236,6 +242,7 @@ public class ScanQRcode extends AppCompatActivity implements LocationListener {
         }
     }
 
+//      this mathod calculate the distance between two points and calculate the time between two points
 
     public void showDistance(String origin_lat, String origin_long, double dest_lat, double dest_long, String diff) {
 
@@ -270,6 +277,7 @@ public class ScanQRcode extends AppCompatActivity implements LocationListener {
 
     }
 
+//    check if Qrcode is available in database or not
     public int getCount() {
         c = null;
         SQLiteDatabase db = null;
@@ -311,7 +319,7 @@ public class ScanQRcode extends AppCompatActivity implements LocationListener {
 
     @Override
     public void onProviderDisabled(String provider) {
-        Toast.makeText(this, "Please Enable GPS and Internet", Toast.LENGTH_SHORT).show();
+        //      Toast.makeText(this, "Please Enable GPS and Internet", Toast.LENGTH_SHORT).show();
     }
 
     @Override

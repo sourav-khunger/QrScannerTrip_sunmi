@@ -1,19 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/landingpage"
     android:orientation="vertical"
     tools:context=".ScanQRcode">
-    <EditText
-        android:id="@+id/qr_codeget"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+
     <ImageView
         android:id="@+id/scan_code"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:src="@drawable/landingpage" />
+    <EditText
+        android:id="@+id/qr_codeget"
+        android:background="#FAB71C"
+        android:textColor="#FAB71C"
+        android:focusedByDefault="true"
+        android:layout_width="wrap_content"
+        android:clickable="false"
+        android:layout_height="wrap_content" />
 
-</LinearLayout>
+</RelativeLayout>

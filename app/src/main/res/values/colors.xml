@@ -2,6 +2,6 @@
 <resources>
     <color name="colorPrimary">#008577</color>
     <color name="colorPrimaryDark">#E7A918</color>
-    <color name="colorAccent">#D81B60</color>
+    <color name="colorAccent">#FAB71C</color>
     <color name="trip_summary_bg_clr">#F2F2F2</color>
 </resources>
