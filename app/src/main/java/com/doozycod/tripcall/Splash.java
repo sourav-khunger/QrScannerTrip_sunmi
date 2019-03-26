@@ -16,15 +16,25 @@ public class Splash extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash);
 
+
+//        this getWindow function is used in to stay awake screen everytime
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
+
+
+//        This if statement is for permissions
 
         if (!Permissions.Check_FINE_LOCATION(this) && !Permissions.Check_COURSE_LOCATION(this)) {
             Permissions.Request_FINE_LOCATION(this, 22);
             Permissions.Request_COURSE_LOCATION(this, 22);
 
         }
+
         hideStatusBar();
+
+//          Hiding the actionBar
         getSupportActionBar().hide();
+
+
 //        Handler for creating a delay to start the Another Activity
         new Handler().postDelayed(new Runnable() {
             @Override
@@ -35,6 +45,7 @@ public class Splash extends AppCompatActivity {
             }
         }, DELAYE_TIME);
     }
+//      pre-defined method for request permission
 
     public void onRequestPermissionsResult(int requestCode, String permissions[], int[] grantResults) {
         switch (requestCode) {
