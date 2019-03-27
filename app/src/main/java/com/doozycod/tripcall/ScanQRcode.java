@@ -129,6 +129,7 @@ public class ScanQRcode extends Activity implements LocationListener {
 //        getLocation();
     }
 
+
     //          hide Status bar and give full screen view
     void hideStatusBar() {
         View decorView = getWindow().getDecorView();
