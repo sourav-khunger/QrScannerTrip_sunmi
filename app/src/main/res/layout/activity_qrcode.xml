@@ -7,11 +7,7 @@
     android:orientation="vertical"
     tools:context=".ScanQRcode">
 
-    <ImageView
-        android:id="@+id/scan_code"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:src="@drawable/landingpage" />
+
     <EditText
     android:textColor="#FAB71C"
     android:id="@+id/qr_codeget"

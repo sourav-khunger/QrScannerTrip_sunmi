@@ -1,5 +1,6 @@
 package com.doozycod.tripcall;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
@@ -8,7 +9,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.view.WindowManager;
 
-public class Splash extends AppCompatActivity {
+public class Splash extends Activity {
     final int DELAYE_TIME = 5000;
 
     @Override
@@ -30,9 +31,6 @@ public class Splash extends AppCompatActivity {
         }
 
         hideStatusBar();
-
-//          Hiding the actionBar
-        getSupportActionBar().hide();
 
 
 //        Handler for creating a delay to start the Another Activity

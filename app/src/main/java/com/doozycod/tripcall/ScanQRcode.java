@@ -1,6 +1,7 @@
 package com.doozycod.tripcall;
 
 import android.annotation.TargetApi;
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
@@ -10,9 +11,6 @@ import android.location.LocationListener;
 import android.location.LocationManager;
 import android.os.Build;
 import android.os.Bundle;
-import android.os.PowerManager;
-import android.support.annotation.RequiresApi;
-import android.support.v7.app.AppCompatActivity;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
@@ -25,9 +23,6 @@ import android.widget.Toast;
 import com.doozycod.tripcall.helper.DBhelper;
 import com.doozycod.tripcall.helper.DatabaseModel;
 
-import org.json.JSONException;
-import org.json.JSONObject;
-
 import java.text.DateFormat;
 import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
@@ -35,9 +30,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-import static android.content.Context.MODE_PRIVATE;
-
-public class ScanQRcode extends AppCompatActivity implements LocationListener {
+public class ScanQRcode extends Activity implements LocationListener {
 
     //View Objects
     boolean isNetworkEnabled = false;
@@ -67,7 +60,8 @@ public class ScanQRcode extends AppCompatActivity implements LocationListener {
         setContentView(R.layout.activity_qrcode);
 
         hideStatusBar();
-        getSupportActionBar().hide();
+
+//        getActionBar().hide();
 
         //      Checking that run is first time of the app or not
         Boolean isFirstRun = getSharedPreferences("PREFERENCE", MODE_PRIVATE)
@@ -81,7 +75,7 @@ public class ScanQRcode extends AppCompatActivity implements LocationListener {
                 .putBoolean("isFirstRun", false).apply();
 
         qrcode_in_et = findViewById(R.id.qr_codeget);
-        buttonScan = findViewById(R.id.scan_code);
+//        buttonScan = findViewById(R.id.scan_code);
         dBhelper = new DBhelper(this);
         databaseModels = new ArrayList<>();
 
@@ -100,32 +94,42 @@ public class ScanQRcode extends AppCompatActivity implements LocationListener {
 
 //         Whenever the edittext change it's value this methods will run
         qrcode_in_et.addTextChangedListener(new TextWatcher() {
-                @Override
-                public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
 
-                }
+            }
 
-                @Override
-                public void onTextChanged(CharSequence s, int start, int before, int count) {
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
 
 //              send data to database whenever edittext get the value of Qrcode
-                        QrCode = qrcode_in_et.getText().toString();
-
-                        if (QrCode != null && !QrCode.equals("")) {
-
-                            Toast.makeText(ScanQRcode.this, qrcode_in_et.getText(), Toast.LENGTH_SHORT).show();
-                            getLocation();
-                        }
+//                    Toast.makeText(ScanQRcode.this, "OnText "+s, Toast.LENGTH_SHORT).show();
+                if (-1 != s.toString().indexOf("\n")) {
+                    doSendMsg();
                 }
+            }
 
-                @Override
-                public void afterTextChanged(Editable s) {
+            @Override
+            public void afterTextChanged(Editable s) {
+                QrCode = qrcode_in_et.getText().toString();
 
+                if (!QrCode.equals("")) {
+
+                    if (-1 != s.toString().indexOf("\n")) {
+                        Toast.makeText(ScanQRcode.this, s.toString().trim(), Toast.LENGTH_SHORT).show();
+                        getLocation();
+                    }
                 }
-            });
-        }
+            }
+        });
+    }
 
-//          hide Status bar and give full screen view
+    private void doSendMsg() {
+//        Toast.makeText(this, "Enter Pressed " + qrcode_in_et.getText().toString().trim(), Toast.LENGTH_SHORT).show();
+//        getLocation();
+    }
+
+    //          hide Status bar and give full screen view
     void hideStatusBar() {
         View decorView = getWindow().getDecorView();
 
@@ -145,7 +149,6 @@ public class ScanQRcode extends AppCompatActivity implements LocationListener {
         hideStatusBar();
         super.onResume();
     }
-
 
 
 //      @getLocation method get the location and send it to database
@@ -228,8 +231,7 @@ public class ScanQRcode extends AppCompatActivity implements LocationListener {
                                 e.printStackTrace();
                             }
 
-                        }
-                        else{
+                        } else {
                             Toast.makeText(this, "", Toast.LENGTH_SHORT).show();
                         }
 
@@ -277,7 +279,7 @@ public class ScanQRcode extends AppCompatActivity implements LocationListener {
 
     }
 
-//    check if Qrcode is available in database or not
+    //    check if Qrcode is available in database or not
     public int getCount() {
         c = null;
         SQLiteDatabase db = null;

@@ -1,5 +1,6 @@
 package com.doozycod.tripcall;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.media.MediaPlayer;
 import android.os.Bundle;
@@ -8,7 +9,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.view.WindowManager;
 
-public class ThankYou extends AppCompatActivity {
+public class ThankYou extends Activity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -16,7 +17,7 @@ public class ThankYou extends AppCompatActivity {
         setContentView(R.layout.activity_thank_you);
 
         hideStatusBar();
-        getSupportActionBar().hide();
+//        getActionBar().hide();
 
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
 

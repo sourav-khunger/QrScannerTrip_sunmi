@@ -1,5 +1,6 @@
 package com.doozycod.tripcall;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.media.MediaPlayer;
 import android.os.Bundle;
@@ -11,22 +12,28 @@ import android.widget.TextView;
 
 import java.text.DecimalFormat;
 
-public class TripSummary extends AppCompatActivity {
+public class TripSummary extends Activity {
     TextView trip_distance, trip_Time, rp_price;
     String TRIP_DISTANCE, TRIP_TIME;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+
         setContentView(R.layout.activity_trip_summary);
         trip_Time = findViewById(R.id.trip_time_tv);
         trip_distance = findViewById(R.id.trip_distance_tv);
         rp_price = findViewById(R.id.rp_price);
 
-        getSupportActionBar().hide();
+//        getActionBar().hide();
+
         hideStatusBar();
 
+//        keep screen always on
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
+
+//        Whenever the this activity is in action this Mediaplayer will start a Thank you
 
         MediaPlayer ring = MediaPlayer.create(TripSummary.this, R.raw.thankyoueffect);
         ring.start();
