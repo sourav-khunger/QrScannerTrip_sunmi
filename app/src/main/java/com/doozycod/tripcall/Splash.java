@@ -3,6 +3,7 @@ package com.doozycod.tripcall;
 import android.app.Activity;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
@@ -23,13 +24,13 @@ public class Splash extends Activity {
 
 
 //        This if statement is for permissions
+            if(Build.VERSION.SDK_INT>=21) {
+                if (!Permissions.Check_FINE_LOCATION(this) && !Permissions.Check_COURSE_LOCATION(this)) {
+                    Permissions.Request_FINE_LOCATION(this, 22);
+                    Permissions.Request_COURSE_LOCATION(this, 22);
 
-        if (!Permissions.Check_FINE_LOCATION(this) && !Permissions.Check_COURSE_LOCATION(this)) {
-            Permissions.Request_FINE_LOCATION(this, 22);
-            Permissions.Request_COURSE_LOCATION(this, 22);
-
-        }
-
+                }
+            }
         hideStatusBar();
 
 

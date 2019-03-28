@@ -34,6 +34,7 @@ public class ScanQRcode extends Activity implements LocationListener {
 
     //View Objects
     boolean isNetworkEnabled = false;
+    boolean isGPSEnabled = false;
     private ImageView buttonScan;
     Location location;
     double latitude;
@@ -160,12 +161,15 @@ public class ScanQRcode extends Activity implements LocationListener {
             locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
             locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 2000, 5, this);
             isNetworkEnabled = locationManager.isProviderEnabled(LocationManager.NETWORK_PROVIDER);
+
+
             if (isNetworkEnabled) {
 
                 locationManager.requestLocationUpdates(
                         LocationManager.NETWORK_PROVIDER,
                         MIN_TIME_BW_UPDATES,
                         MIN_DISTANCE_CHANGE_FOR_UPDATES, this);
+
 
                 if (locationManager != null) {
                     location = locationManager
